@@ -155,6 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const requestBtn = document.getElementById('requestBtn');
     const clearCart = document.getElementById('clearCart');
     const addToCartBtns = document.querySelectorAll('.add-to-cart');
+    const whatsappPhone = '256767598926';
     
     // Open Cart
     if (cartToggle) {
@@ -234,6 +235,26 @@ document.addEventListener('DOMContentLoaded', function() {
             updateCart();
         });
     }
+
+    if (requestBtn) {
+        requestBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            if (cart.length === 0) {
+                cartModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                return;
+            }
+
+            const whatsappUrl = buildWhatsAppUrl();
+            requestBtn.href = whatsappUrl;
+
+            const openedWindow = window.open(whatsappUrl, '_blank', 'noopener');
+            if (!openedWindow) {
+                window.location.href = whatsappUrl;
+            }
+        });
+    }
     
     // Update Cart Display
     function updateCart() {
@@ -275,26 +296,30 @@ document.addEventListener('DOMContentLoaded', function() {
         removeFromCart(index);
     };
     
+    function buildWhatsAppMessage() {
+        const total = cart.reduce((sum, item) => sum + item.price, 0);
+        let message = 'Hello Africa Healing Network,\n\nI am interested in the following services:\n\n';
+
+        cart.forEach((item, index) => {
+            message += `${index + 1}. ${item.name} - $${item.price}\n`;
+        });
+
+        message += `\nTotal: $${total}\n\nPlease contact me to proceed.`;
+        return message;
+    }
+
+    function buildWhatsAppUrl() {
+        return `https://api.whatsapp.com/send?phone=${whatsappPhone}&text=${encodeURIComponent(buildWhatsAppMessage())}`;
+    }
+
     // Update WhatsApp Request Link
     function updateWhatsAppLink() {
         if (cart.length === 0) {
             requestBtn.href = '#';
             requestBtn.style.opacity = '0.5';
-            requestBtn.style.pointerEvents = 'none';
         } else {
-            const total = cart.reduce((sum, item) => sum + item.price, 0);
-            let message = 'Hello Africa Healing Network,\n\nI am interested in the following services:\n\n';
-            
-            cart.forEach((item, index) => {
-                message += `${index + 1}. ${item.name} - $${item.price}\n`;
-            });
-            
-            message += `\nTotal: $${total}\n\nPlease contact me to proceed.`;
-            
-            const encodedMessage = encodeURIComponent(message);
-            requestBtn.href = `https://wa.me/256767598926?text=${encodedMessage}`;
+            requestBtn.href = buildWhatsAppUrl();
             requestBtn.style.opacity = '1';
-            requestBtn.style.pointerEvents = 'auto';
         }
     }
     
