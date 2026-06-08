@@ -60,8 +60,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     if (mobileMenuBtn) {
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
         mobileMenuBtn.addEventListener('click', function() {
-            mainNav.style.display = mainNav.style.display === 'block' ? 'none' : 'block';
+            const isOpen = mainNav.classList.toggle('active');
+            this.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         });
     }
 
@@ -78,8 +80,18 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
+            const targetId = this.getAttribute('href');
+            if (!targetId || targetId === '#') {
+                return;
+            }
+
+            const target = document.querySelector(targetId);
             if (target) {
+                if (mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
+                    mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                }
+
                 target.scrollIntoView({
                     behavior: 'smooth'
                 });
