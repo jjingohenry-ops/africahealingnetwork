@@ -379,7 +379,7 @@ ul {
 }
 
 .placeholder-image {
-    width: min(400px, 100%);
+    width: min(280px, 100%);
     background: transparent;
     border-radius: 8px;
     display: flex;
@@ -1237,7 +1237,7 @@ ul {
     }
 
     .placeholder-image {
-        width: 250px;
+        width: 190px;
         height: auto;
     }
 
