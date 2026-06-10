@@ -144,17 +144,25 @@ document.addEventListener('DOMContentLoaded', function() {
     const serviceSearch = document.getElementById('serviceSearch');
     const serviceSearchClear = document.getElementById('serviceSearchClear');
     const serviceSearchCount = document.getElementById('serviceSearchCount');
+    const serviceSearchResults = document.getElementById('serviceSearchResults');
     const serviceItems = document.querySelectorAll('.service-item');
-    const serviceCategories = document.querySelectorAll('.service-category');
 
     if (serviceSearch && serviceItems.length > 0) {
-        serviceItems.forEach(item => {
+        serviceItems.forEach((item, index) => {
             const title = item.querySelector('h4')?.textContent || '';
             const description = item.querySelector('p')?.textContent || '';
+            const price = item.querySelector('.current-price')?.textContent || '';
+            const image = item.querySelector('.service-image')?.getAttribute('src') || serviceImages[title] || 'PHOTO-2026-04-24-17-01-25.jpg';
+            item.dataset.serviceIndex = String(index);
+            item.dataset.title = title;
+            item.dataset.description = description;
+            item.dataset.price = price;
+            item.dataset.image = image;
             item.dataset.searchText = `${title} ${description}`.toLowerCase();
         });
 
         serviceSearch.addEventListener('input', filterServices);
+        serviceSearch.addEventListener('focus', filterServices);
 
         if (serviceSearchClear) {
             serviceSearchClear.addEventListener('click', function() {
@@ -163,24 +171,36 @@ document.addEventListener('DOMContentLoaded', function() {
                 filterServices();
             });
         }
+
+        if (serviceSearchResults) {
+            serviceSearchResults.addEventListener('click', function(e) {
+                const result = e.target.closest('.service-search-result');
+                if (!result) {
+                    return;
+                }
+
+                const serviceItem = document.querySelector(`.service-item[data-service-index="${result.dataset.serviceIndex}"]`);
+                if (!serviceItem) {
+                    return;
+                }
+
+                closeServiceSearchResults();
+                serviceItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                serviceItem.classList.add('search-highlight');
+                setTimeout(() => serviceItem.classList.remove('search-highlight'), 1400);
+            });
+        }
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.service-search')) {
+                closeServiceSearchResults();
+            }
+        });
     }
 
     function filterServices() {
         const query = serviceSearch.value.trim().toLowerCase();
-        let visibleCount = 0;
-
-        serviceItems.forEach(item => {
-            const isMatch = !query || item.dataset.searchText.includes(query);
-            item.classList.toggle('is-hidden', !isMatch);
-            if (isMatch) {
-                visibleCount++;
-            }
-        });
-
-        serviceCategories.forEach(category => {
-            const hasVisibleService = Array.from(category.querySelectorAll('.service-item')).some(item => !item.classList.contains('is-hidden'));
-            category.classList.toggle('is-hidden', !hasVisibleService);
-        });
+        const matches = query ? Array.from(serviceItems).filter(item => item.dataset.searchText.includes(query)) : [];
 
         if (serviceSearchClear) {
             serviceSearchClear.classList.toggle('visible', query.length > 0);
@@ -189,11 +209,68 @@ document.addEventListener('DOMContentLoaded', function() {
         if (serviceSearchCount) {
             if (!query) {
                 serviceSearchCount.textContent = '';
-            } else if (visibleCount === 0) {
+            } else if (matches.length === 0) {
                 serviceSearchCount.textContent = 'No services found';
             } else {
-                serviceSearchCount.textContent = `${visibleCount} service${visibleCount === 1 ? '' : 's'} found`;
+                serviceSearchCount.textContent = `${matches.length} service${matches.length === 1 ? '' : 's'} found`;
             }
+        }
+
+        renderServiceSearchResults(matches, query);
+    }
+
+    function renderServiceSearchResults(matches, query) {
+        if (!serviceSearchResults) {
+            return;
+        }
+
+        serviceSearchResults.innerHTML = '';
+        serviceSearchResults.classList.toggle('active', query.length > 0);
+
+        if (!query) {
+            return;
+        }
+
+        if (matches.length === 0) {
+            const empty = document.createElement('div');
+            empty.className = 'service-search-empty';
+            empty.textContent = 'No matching services found';
+            serviceSearchResults.appendChild(empty);
+            return;
+        }
+
+        matches.forEach(item => {
+            const result = document.createElement('button');
+            result.type = 'button';
+            result.className = 'service-search-result';
+            result.dataset.serviceIndex = item.dataset.serviceIndex;
+
+            const image = document.createElement('img');
+            image.src = item.dataset.image;
+            image.alt = item.dataset.title;
+            image.loading = 'lazy';
+
+            const content = document.createElement('span');
+            content.className = 'service-search-result-content';
+
+            const title = document.createElement('strong');
+            title.textContent = item.dataset.title;
+
+            const description = document.createElement('span');
+            description.textContent = item.dataset.description;
+
+            const price = document.createElement('b');
+            price.textContent = item.dataset.price;
+
+            content.append(title, description);
+            result.append(image, content, price);
+            serviceSearchResults.appendChild(result);
+        });
+    }
+
+    function closeServiceSearchResults() {
+        if (serviceSearchResults) {
+            serviceSearchResults.classList.remove('active');
         }
     }
 
