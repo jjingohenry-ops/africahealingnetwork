@@ -221,6 +221,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const paymentDetailsView = document.getElementById('paymentDetailsView');
     const selectedPaymentMethod = document.getElementById('selectedPaymentMethod');
     const selectedPaymentLogo = document.getElementById('selectedPaymentLogo');
+    const paymentTotal = document.getElementById('paymentTotal');
+    const paymentReceiptLink = document.querySelector('.payment-receipt-link');
     const paymentMethodBtns = document.querySelectorAll('.payment-method-pay');
     const whatsappPhone = '256767598926';
     
@@ -399,6 +401,7 @@ document.addEventListener('DOMContentLoaded', function() {
         selectedPaymentMethod.textContent = method;
         selectedPaymentLogo.src = logo;
         selectedPaymentLogo.alt = method;
+        updatePaymentDetails();
         paymentMethodsView.classList.remove('active');
         paymentDetailsView.classList.add('active');
     }
@@ -433,6 +436,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Update total
         const total = cart.reduce((sum, item) => sum + item.price, 0);
         cartTotal.textContent = '$' + total;
+        updatePaymentDetails();
         
         // Update WhatsApp link
         updateWhatsAppLink();
@@ -455,8 +459,36 @@ document.addEventListener('DOMContentLoaded', function() {
         return message;
     }
 
+    function buildReceiptWhatsAppMessage() {
+        const total = cart.reduce((sum, item) => sum + item.price, 0);
+        let message = 'Hello Africa Healing Network,\n\nI have made payment for the following services:\n\n';
+
+        cart.forEach((item, index) => {
+            message += `${index + 1}. ${item.name} - $${item.price}\n`;
+        });
+
+        message += `\nTotal Paid: $${total}\n\nI will send the proof of payment / receipt here.`;
+        return message;
+    }
+
     function buildWhatsAppUrl() {
         return `https://api.whatsapp.com/send?phone=${whatsappPhone}&text=${encodeURIComponent(buildWhatsAppMessage())}`;
+    }
+
+    function buildReceiptWhatsAppUrl() {
+        return `https://api.whatsapp.com/send?phone=${whatsappPhone}&text=${encodeURIComponent(buildReceiptWhatsAppMessage())}`;
+    }
+
+    function updatePaymentDetails() {
+        const total = cart.reduce((sum, item) => sum + item.price, 0);
+
+        if (paymentTotal) {
+            paymentTotal.textContent = '$' + total;
+        }
+
+        if (paymentReceiptLink) {
+            paymentReceiptLink.href = cart.length === 0 ? `https://api.whatsapp.com/send?phone=${whatsappPhone}` : buildReceiptWhatsAppUrl();
+        }
     }
 
     // Update WhatsApp Request Link
