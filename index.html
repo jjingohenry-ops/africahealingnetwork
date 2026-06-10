@@ -94,11 +94,55 @@
         <div class="hero-slider">
             <div class="slide active">
                 <div class="slide-content">
+                    <div class="service-search hero-service-search">
+                        <label class="sr-only" for="serviceSearch">Search services</label>
+                        <div class="service-search-box">
+                            <i class="fas fa-search"></i>
+                            <input id="serviceSearch" type="search" placeholder="Search services..." autocomplete="off">
+                            <button id="serviceSearchClear" type="button" title="Clear search" aria-label="Clear search">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <p id="serviceSearchCount" class="service-search-count"></p>
+                    </div>
                     <h1>Authentic African Traditional Healing</h1>
                     <p>Experience the power of ancestral wisdom. Our expert traditional healers perform authentic African ceremonies to bring peace, prosperity, and spiritual growth to your life.</p>
                     <div class="hero-buttons">
                         <a href="https://api.whatsapp.com/send?phone=256767598926" target="_blank" class="btn btn-primary"><i class="fab fa-whatsapp"></i> Get Free Consultation</a>
                         <a href="#services" class="btn btn-secondary">Explore Our Services</a>
+                    </div>
+                    <div class="payment-methods">
+                        <h4>Accepted Payment Methods</h4>
+                        <div class="payment-icons">
+                            <div class="payment-icon">
+                                <img src="assets/services/RIA-1320x743.png" alt="RIA">
+                                <span>Ria</span>
+                            </div>
+                            <div class="payment-icon">
+                                <img src="assets/services/western-union-gif.gif" alt="Western Union">
+                                <span>Western Union</span>
+                            </div>
+                            <div class="payment-icon">
+                                <img src="assets/services/unnamed-7.png.webp" alt="Sendwave">
+                                <span>Sendwave</span>
+                            </div>
+                            <div class="payment-icon">
+                                <img src="assets/services/MoneyGram.jpeg" alt="MoneyGram">
+                                <span>MoneyGram</span>
+                            </div>
+                            <div class="payment-icon">
+                                <img src="assets/services/remtily_logo_vertical_midnight_b.6eT0nA18TSlQIsjllF72RN.png" alt="Remitly">
+                                <span>Remitly</span>
+                            </div>
+                            <div class="payment-icon">
+                                <img src="assets/services/0x0.png" alt="Taptap Send">
+                                <span>Taptap</span>
+                            </div>
+                            <div class="payment-icon">
+                                <img src="assets/services/mtn:airtel.jpeg" alt="MTN and Airtel mobile money">
+                                <span>Mobile Money</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="slide-image">
@@ -217,17 +261,6 @@
             <div class="section-header">
                 <h2>Our Spiritual Services & Pricing</h2>
                 <p>Authentic rituals and spiritual materials with transparent pricing - <span class="sale-badge">70% OFF All Services</span></p>
-            </div>
-            <div class="service-search">
-                <label class="sr-only" for="serviceSearch">Search services</label>
-                <div class="service-search-box">
-                    <i class="fas fa-search"></i>
-                    <input id="serviceSearch" type="search" placeholder="Search services..." autocomplete="off">
-                    <button id="serviceSearchClear" type="button" title="Clear search" aria-label="Clear search">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <p id="serviceSearchCount" class="service-search-count"></p>
             </div>
 
             <!-- Love & Relationship Services -->
@@ -1021,29 +1054,6 @@
                     </ul>
                 </div>
             </div>
-            <!-- Payment Methods Section -->
-            <div class="payment-methods">
-                <h4>Accepted Payment Methods</h4>
-                <div class="payment-icons">
-                    <div class="payment-icon">
-                        <i class="fas fa-money-bill-wave"></i>
-                        <span>Ria</span>
-                    </div>
-                    <div class="payment-icon">
-                        <i class="fas fa-university"></i>
-                        <span>Western Union</span>
-                    </div>
-                    <div class="payment-icon">
-                        <i class="fas fa-paper-plane"></i>
-                        <span>Sendwave</span>
-                    </div>
-                    <div class="payment-icon">
-                        <i class="fas fa-exchange-alt"></i>
-                        <span>MoneyGram</span>
-                    </div>
-                </div>
-            </div>
-
             <div class="footer-bottom">
                 <p>&copy; 2024 AfricaHealingNetwork.com. All Rights Reserved.</p>
             </div>
@@ -1122,6 +1132,20 @@
                         <img src="assets/services/MoneyGram.jpeg" alt="MoneyGram" class="payment-method-logo">
                         <h4>MONEYGRAM</h4>
                         <button class="payment-method-pay" type="button" data-method="MONEYGRAM" data-logo="assets/services/MoneyGram.jpeg">
+                            <img src="assets/services/pay-now.gif" alt="Pay Now">
+                        </button>
+                    </div>
+                    <div class="payment-method-card">
+                        <img src="assets/services/remtily_logo_vertical_midnight_b.6eT0nA18TSlQIsjllF72RN.png" alt="Remitly" class="payment-method-logo">
+                        <h4>REMITLY</h4>
+                        <button class="payment-method-pay" type="button" data-method="REMITLY" data-logo="assets/services/remtily_logo_vertical_midnight_b.6eT0nA18TSlQIsjllF72RN.png">
+                            <img src="assets/services/pay-now.gif" alt="Pay Now">
+                        </button>
+                    </div>
+                    <div class="payment-method-card">
+                        <img src="assets/services/0x0.png" alt="Taptap Send" class="payment-method-logo">
+                        <h4>TAPTAP</h4>
+                        <button class="payment-method-pay" type="button" data-method="TAPTAP" data-logo="assets/services/0x0.png">
                             <img src="assets/services/pay-now.gif" alt="Pay Now">
                         </button>
                     </div>

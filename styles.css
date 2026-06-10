@@ -379,6 +379,16 @@ ul {
     flex-wrap: wrap;
 }
 
+.hero-service-search {
+    width: min(520px, 100%);
+    margin: 0 0 24px;
+}
+
+.hero-service-search .service-search-count {
+    color: rgba(255, 255, 255, 0.78);
+    text-align: left;
+}
+
 .slide-image {
     flex: 0 0 400px;
 }
@@ -1017,22 +1027,20 @@ ul {
 /* Payment Methods Section */
 .payment-methods {
     text-align: center;
-    padding: 30px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 30px;
+    padding: 24px 0 0;
+    margin-top: 12px;
 }
 
 .payment-methods h4 {
     color: var(--white);
-    margin-bottom: 20px;
+    margin-bottom: 14px;
     font-size: 18px;
 }
 
 .payment-icons {
     display: flex;
-    justify-content: center;
-    gap: 40px;
+    justify-content: flex-start;
+    gap: 12px;
     flex-wrap: wrap;
 }
 
@@ -1040,26 +1048,39 @@ ul {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    justify-content: space-between;
+    gap: 7px;
+    width: 96px;
+    min-height: 88px;
+    padding: 10px 8px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
     color: var(--white);
     transition: var(--transition);
 }
 
 .payment-icon:hover {
     transform: translateY(-3px);
-    color: var(--secondary-color);
+    border-color: rgba(255, 183, 3, 0.65);
+    background: rgba(255, 255, 255, 0.12);
 }
 
-.payment-icon i {
-    font-size: 32px;
-    color: var(--secondary-color);
+.payment-icon img {
+    width: 100%;
+    height: 40px;
+    object-fit: contain;
+    border-radius: 5px;
+    background: var(--white);
+    padding: 4px;
 }
 
 .payment-icon span {
     font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0;
+    line-height: 1.2;
 }
 
 /* Cart Styles */
@@ -1653,6 +1674,27 @@ ul {
     .hero-buttons .btn {
         width: 100%;
         justify-content: center;
+    }
+
+    .hero-service-search {
+        margin: 0 auto 22px;
+    }
+
+    .hero-service-search .service-search-count {
+        text-align: center;
+    }
+
+    .payment-methods {
+        padding-top: 20px;
+    }
+
+    .payment-icons {
+        justify-content: center;
+    }
+
+    .payment-icon {
+        width: calc(50% - 8px);
+        max-width: 150px;
     }
 
     .service-search {
