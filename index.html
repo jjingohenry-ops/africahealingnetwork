@@ -218,6 +218,17 @@
                 <h2>Our Spiritual Services & Pricing</h2>
                 <p>Authentic rituals and spiritual materials with transparent pricing - <span class="sale-badge">70% OFF All Services</span></p>
             </div>
+            <div class="service-search">
+                <label class="sr-only" for="serviceSearch">Search services</label>
+                <div class="service-search-box">
+                    <i class="fas fa-search"></i>
+                    <input id="serviceSearch" type="search" placeholder="Search services..." autocomplete="off">
+                    <button id="serviceSearchClear" type="button" title="Clear search" aria-label="Clear search">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <p id="serviceSearchCount" class="service-search-count"></p>
+            </div>
 
             <!-- Love & Relationship Services -->
             <div class="service-category">
@@ -1044,7 +1055,7 @@
         <div class="cart-content">
             <div class="cart-header">
                 <h3><i class="fas fa-shopping-cart"></i> Your Cart</h3>
-                <button class="cart-close" id="cartClose"><i class="fas fa-times"></i></button>
+                <button class="cart-close" id="cartClose" type="button" aria-label="Close cart"><i class="fas fa-times"></i></button>
             </div>
             <div class="cart-body">
                 <div id="cartItems" class="cart-items">
@@ -1060,12 +1071,88 @@
                     <span>Total:</span>
                     <span id="cartTotal">$0</span>
                 </div>
+                <button id="payNowBtn" class="pay-now-cart" type="button">
+                    <img src="assets/services/pay-now.gif" alt="Pay Now">
+                </button>
                 <a href="#" id="requestBtn" class="btn btn-whatsapp btn-large" target="_blank">
                     <i class="fab fa-whatsapp"></i> Request via WhatsApp
                 </a>
-                <button id="clearCart" class="btn btn-clear">
+                <button id="clearCart" class="btn btn-clear" type="button">
                     <i class="fas fa-trash"></i> Clear Cart
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="payment-modal">
+        <div class="payment-content" role="dialog" aria-modal="true" aria-labelledby="paymentTitle">
+            <div class="payment-header">
+                <h3 id="paymentTitle">Payment Methods</h3>
+                <button class="payment-close" id="paymentClose" type="button" aria-label="Close payment methods">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div id="paymentMethodsView" class="payment-view active">
+                <p class="payment-instruction">Use the payments methods below and send the proof of payment / receipt via WhatsApp.</p>
+                <div class="payment-method-grid">
+                    <div class="payment-method-card">
+                        <img src="assets/services/RIA-1320x743.png" alt="RIA" class="payment-method-logo">
+                        <h4>RIA</h4>
+                        <button class="payment-method-pay" type="button" data-method="RIA" data-logo="assets/services/RIA-1320x743.png">
+                            <img src="assets/services/pay-now.gif" alt="Pay Now">
+                        </button>
+                    </div>
+                    <div class="payment-method-card">
+                        <img src="assets/services/western-union-gif.gif" alt="Western Union" class="payment-method-logo">
+                        <h4>WESTERN UNION</h4>
+                        <button class="payment-method-pay" type="button" data-method="WESTERN UNION" data-logo="assets/services/western-union-gif.gif">
+                            <img src="assets/services/pay-now.gif" alt="Pay Now">
+                        </button>
+                    </div>
+                    <div class="payment-method-card">
+                        <img src="assets/services/worldremit-logo-1200px-600x400-1-1.jpeg" alt="Sendwave" class="payment-method-logo">
+                        <h4>SENDWAVE</h4>
+                        <button class="payment-method-pay" type="button" data-method="SENDWAVE" data-logo="assets/services/worldremit-logo-1200px-600x400-1-1.jpeg">
+                            <img src="assets/services/pay-now.gif" alt="Pay Now">
+                        </button>
+                    </div>
+                    <div class="payment-method-card">
+                        <img src="assets/services/MoneyGram.jpeg" alt="MoneyGram" class="payment-method-logo">
+                        <h4>MONEYGRAM</h4>
+                        <button class="payment-method-pay" type="button" data-method="MONEYGRAM" data-logo="assets/services/MoneyGram.jpeg">
+                            <img src="assets/services/pay-now.gif" alt="Pay Now">
+                        </button>
+                    </div>
+                    <div class="payment-method-card">
+                        <img src="assets/services/money-bag.jpg" alt="Mobile money" class="payment-method-logo">
+                        <h4>MOBILE MONEY</h4>
+                        <button class="payment-method-pay" type="button" data-method="MOBILE MONEY" data-logo="assets/services/money-bag.jpg">
+                            <img src="assets/services/pay-now.gif" alt="Pay Now">
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="paymentDetailsView" class="payment-view">
+                <button id="paymentBack" class="payment-back" type="button">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+                <div class="selected-payment-card">
+                    <img id="selectedPaymentLogo" src="assets/services/RIA-1320x743.png" alt="" class="selected-payment-logo">
+                    <h4 id="selectedPaymentMethod">RIA</h4>
+                </div>
+                <div class="payment-details-list">
+                    <div><span>Name:</span> KAKAIRE EDRINE CHARLES</div>
+                    <div><span>Address:</span> KYANJA NEAR TOTAL PETROL STATION</div>
+                    <div><span>Country:</span> UGANDA</div>
+                    <div><span>Tel:</span> 0763445668</div>
+                </div>
+                <img src="assets/services/pngtree-money-back-guarantee-gold-sign-label-vector-png-image_7077463.png" alt="Money back guarantee" class="payment-guarantee">
+                <a href="https://api.whatsapp.com/send?phone=256767598926" class="btn btn-whatsapp payment-receipt-link" target="_blank" rel="noopener">
+                    <i class="fab fa-whatsapp"></i> Send Receipt via WhatsApp
+                </a>
             </div>
         </div>
     </div>

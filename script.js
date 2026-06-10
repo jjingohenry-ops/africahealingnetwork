@@ -139,6 +139,64 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(el);
     });
 
+    // ==================== SERVICE SEARCH ====================
+
+    const serviceSearch = document.getElementById('serviceSearch');
+    const serviceSearchClear = document.getElementById('serviceSearchClear');
+    const serviceSearchCount = document.getElementById('serviceSearchCount');
+    const serviceItems = document.querySelectorAll('.service-item');
+    const serviceCategories = document.querySelectorAll('.service-category');
+
+    if (serviceSearch && serviceItems.length > 0) {
+        serviceItems.forEach(item => {
+            const title = item.querySelector('h4')?.textContent || '';
+            const description = item.querySelector('p')?.textContent || '';
+            item.dataset.searchText = `${title} ${description}`.toLowerCase();
+        });
+
+        serviceSearch.addEventListener('input', filterServices);
+
+        if (serviceSearchClear) {
+            serviceSearchClear.addEventListener('click', function() {
+                serviceSearch.value = '';
+                serviceSearch.focus();
+                filterServices();
+            });
+        }
+    }
+
+    function filterServices() {
+        const query = serviceSearch.value.trim().toLowerCase();
+        let visibleCount = 0;
+
+        serviceItems.forEach(item => {
+            const isMatch = !query || item.dataset.searchText.includes(query);
+            item.classList.toggle('is-hidden', !isMatch);
+            if (isMatch) {
+                visibleCount++;
+            }
+        });
+
+        serviceCategories.forEach(category => {
+            const hasVisibleService = Array.from(category.querySelectorAll('.service-item')).some(item => !item.classList.contains('is-hidden'));
+            category.classList.toggle('is-hidden', !hasVisibleService);
+        });
+
+        if (serviceSearchClear) {
+            serviceSearchClear.classList.toggle('visible', query.length > 0);
+        }
+
+        if (serviceSearchCount) {
+            if (!query) {
+                serviceSearchCount.textContent = '';
+            } else if (visibleCount === 0) {
+                serviceSearchCount.textContent = 'No services found';
+            } else {
+                serviceSearchCount.textContent = `${visibleCount} service${visibleCount === 1 ? '' : 's'} found`;
+            }
+        }
+    }
+
     // ==================== CART FUNCTIONALITY ====================
     
     // Cart State
@@ -153,8 +211,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const cartCount = document.getElementById('cartCount');
     const cartTotal = document.getElementById('cartTotal');
     const requestBtn = document.getElementById('requestBtn');
+    const payNowBtn = document.getElementById('payNowBtn');
     const clearCart = document.getElementById('clearCart');
     const addToCartBtns = document.querySelectorAll('.add-to-cart');
+    const paymentModal = document.getElementById('paymentModal');
+    const paymentClose = document.getElementById('paymentClose');
+    const paymentBack = document.getElementById('paymentBack');
+    const paymentMethodsView = document.getElementById('paymentMethodsView');
+    const paymentDetailsView = document.getElementById('paymentDetailsView');
+    const selectedPaymentMethod = document.getElementById('selectedPaymentMethod');
+    const selectedPaymentLogo = document.getElementById('selectedPaymentLogo');
+    const paymentMethodBtns = document.querySelectorAll('.payment-method-pay');
     const whatsappPhone = '256767598926';
     
     // Open Cart
@@ -255,6 +322,86 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    if (payNowBtn) {
+        payNowBtn.addEventListener('click', function() {
+            if (cart.length === 0) {
+                cartModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                return;
+            }
+
+            openPaymentModal();
+        });
+    }
+
+    if (paymentClose) {
+        paymentClose.addEventListener('click', closePaymentModal);
+    }
+
+    if (paymentBack) {
+        paymentBack.addEventListener('click', showPaymentMethods);
+    }
+
+    if (paymentModal) {
+        paymentModal.addEventListener('click', function(e) {
+            if (e.target === paymentModal) {
+                closePaymentModal();
+            }
+        });
+    }
+
+    paymentMethodBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            showPaymentDetails(this.dataset.method, this.dataset.logo);
+        });
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && paymentModal && paymentModal.classList.contains('active')) {
+            closePaymentModal();
+        }
+    });
+
+    function openPaymentModal() {
+        if (!paymentModal || !paymentMethodsView || !paymentDetailsView) {
+            return;
+        }
+
+        showPaymentMethods();
+        paymentModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closePaymentModal() {
+        if (!paymentModal) {
+            return;
+        }
+
+        paymentModal.classList.remove('active');
+        document.body.style.overflow = cartModal && cartModal.classList.contains('active') ? 'hidden' : '';
+    }
+
+    function showPaymentMethods() {
+        if (!paymentMethodsView || !paymentDetailsView) {
+            return;
+        }
+
+        paymentMethodsView.classList.add('active');
+        paymentDetailsView.classList.remove('active');
+    }
+
+    function showPaymentDetails(method, logo) {
+        if (!selectedPaymentMethod || !selectedPaymentLogo || !paymentMethodsView || !paymentDetailsView) {
+            return;
+        }
+
+        selectedPaymentMethod.textContent = method;
+        selectedPaymentLogo.src = logo;
+        selectedPaymentLogo.alt = method;
+        paymentMethodsView.classList.remove('active');
+        paymentDetailsView.classList.add('active');
+    }
     
     // Update Cart Display
     function updateCart() {
@@ -314,6 +461,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Update WhatsApp Request Link
     function updateWhatsAppLink() {
+        if (!requestBtn) {
+            return;
+        }
+
         if (cart.length === 0) {
             requestBtn.href = '#';
             requestBtn.style.opacity = '0.5';
