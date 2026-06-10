@@ -41,7 +41,14 @@ document.addEventListener('DOMContentLoaded', function() {
         'Ring of Courage': 'assets/services/bangles-rings-crystals-2.jpeg',
         'Ring of Love': 'assets/services/bangles-rings-crystals-1.jpeg',
         'Ring of Success': 'assets/services/bangles-rings-crystals-2.jpeg',
-        'Ring of Spiritual Power': 'assets/services/bangles-rings-crystals-1.jpeg'
+        'Ring of Spiritual Power': 'assets/services/bangles-rings-crystals-1.jpeg',
+        'Elephant Materials': 'assets/services/Elephant Materials.jpeg',
+        'Monkey Bones': 'assets/services/monkey bones.jpeg',
+        'Bats': 'assets/services/bats.jpeg',
+        'Black Cat': 'assets/services/Black Cat.jpeg',
+        'Bird Skulls': 'assets/services/bird skulls.jpeg',
+        'Scorpions': 'assets/services/Scorpions.jpeg',
+        'Turtles': 'assets/services/Turtles.jpeg'
     };
 
     document.querySelectorAll('.service-item').forEach(serviceItem => {
