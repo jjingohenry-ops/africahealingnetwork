@@ -305,6 +305,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const paymentDetailsView = document.getElementById('paymentDetailsView');
     const selectedPaymentMethod = document.getElementById('selectedPaymentMethod');
     const selectedPaymentLogo = document.getElementById('selectedPaymentLogo');
+    const selectedPaymentIcon = document.getElementById('selectedPaymentIcon');
+    const transferPaymentDetails = document.querySelectorAll('.transfer-payment-detail');
+    const paypalPaymentDetail = document.getElementById('paypalPaymentDetail');
     const paymentTotal = document.getElementById('paymentTotal');
     const paymentReceiptLink = document.querySelector('.payment-receipt-link');
     const paymentMethodBtns = document.querySelectorAll('.payment-method-pay');
@@ -439,7 +442,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     paymentMethodBtns.forEach(btn => {
         btn.addEventListener('click', function() {
-            showPaymentDetails(this.dataset.method, this.dataset.logo);
+            showPaymentDetails(this.dataset.method, this.dataset.logo, this.dataset.icon);
         });
     });
 
@@ -477,14 +480,35 @@ document.addEventListener('DOMContentLoaded', function() {
         paymentDetailsView.classList.remove('active');
     }
 
-    function showPaymentDetails(method, logo) {
+    function showPaymentDetails(method, logo, iconClass) {
         if (!selectedPaymentMethod || !selectedPaymentLogo || !paymentMethodsView || !paymentDetailsView) {
             return;
         }
 
         selectedPaymentMethod.textContent = method;
-        selectedPaymentLogo.src = logo;
-        selectedPaymentLogo.alt = method;
+
+        if (iconClass && selectedPaymentIcon) {
+            selectedPaymentLogo.hidden = true;
+            selectedPaymentIcon.hidden = false;
+            selectedPaymentIcon.innerHTML = `<i class="${iconClass}"></i>`;
+        } else {
+            selectedPaymentLogo.hidden = false;
+            selectedPaymentLogo.src = logo;
+            selectedPaymentLogo.alt = method;
+            if (selectedPaymentIcon) {
+                selectedPaymentIcon.hidden = true;
+                selectedPaymentIcon.innerHTML = '';
+            }
+        }
+
+        const isPaypal = method === 'PAYPAL';
+        transferPaymentDetails.forEach(detail => {
+            detail.hidden = isPaypal;
+        });
+        if (paypalPaymentDetail) {
+            paypalPaymentDetail.hidden = !isPaypal;
+        }
+
         updatePaymentDetails();
         paymentMethodsView.classList.remove('active');
         paymentDetailsView.classList.add('active');

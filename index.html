@@ -139,6 +139,12 @@
                                 <img src="assets/services/0x0.png" alt="Taptap Send">
                                 <span>Taptap</span>
                             </div>
+                            <div class="payment-icon">
+                                <div class="payment-brand-logo" aria-label="PayPal">
+                                    <i class="fab fa-paypal"></i>
+                                </div>
+                                <span>PayPal</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1146,6 +1152,15 @@
                             <img src="assets/services/pay-now.gif" alt="Pay Now">
                         </button>
                     </div>
+                    <div class="payment-method-card">
+                        <div class="payment-method-logo payment-method-brand-logo" aria-label="PayPal">
+                            <i class="fab fa-paypal"></i>
+                        </div>
+                        <h4>PAYPAL</h4>
+                        <button class="payment-method-pay" type="button" data-method="PAYPAL" data-icon="fab fa-paypal">
+                            <img src="assets/services/pay-now.gif" alt="Pay Now">
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -1155,14 +1170,16 @@
                 </button>
                 <div class="selected-payment-card">
                     <img id="selectedPaymentLogo" src="assets/services/RIA-1320x743.png" alt="" class="selected-payment-logo">
+                    <div id="selectedPaymentIcon" class="selected-payment-logo selected-payment-brand-icon" hidden></div>
                     <h4 id="selectedPaymentMethod">RIA</h4>
                 </div>
                 <div class="payment-details-list">
-                    <div><span>Name:</span> NAMAYEGGA JACKLINE</div>
-                    <div><span>Address:</span> Kasangati next to Wampewo</div>
-                    <div><span>Country:</span> UGANDA</div>
-                    <div><span>Town:</span> Kasangati</div>
-                    <div><span>Tel:</span> +256708933800</div>
+                    <div class="transfer-payment-detail"><span>Name:</span> NAMAYEGGA JACKLINE</div>
+                    <div class="transfer-payment-detail"><span>Address:</span> Kasangati next to Wampewo</div>
+                    <div class="transfer-payment-detail"><span>Country:</span> UGANDA</div>
+                    <div class="transfer-payment-detail"><span>Town:</span> Kasangati</div>
+                    <div class="transfer-payment-detail"><span>Tel:</span> +256708933800</div>
+                    <div id="paypalPaymentDetail" hidden><span>PayPal Account:</span> jjingohenry@gmail.com</div>
                     <div><span>Total:</span> <strong id="paymentTotal">$0</strong></div>
                 </div>
                 <img src="assets/services/pngtree-money-back-guarantee-gold-sign-label-vector-png-image_7077463.png" alt="Money back guarantee" class="payment-guarantee">
