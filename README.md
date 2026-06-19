@@ -1,4 +1,6 @@
-# Africa Healing Network Tech Stack
+# Africa Healing Network
+
+## Tech Stack
 
 ## Application
 
