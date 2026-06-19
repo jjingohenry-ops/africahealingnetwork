@@ -35,10 +35,11 @@
 - **Version control:** Git
 - **Repository host:** GitHub
 - **Repository name:** `africahealingnetwork`
-- **New GitHub owner:** `jjingohenry-ops` (transfer in progress)
+- **GitHub owner:** `jjingohenry-ops`
 - **Previous GitHub owner:** `dylansoG`
+- **Repository URL:** `https://github.com/jjingohenry-ops/africahealingnetwork`
 
-After the transfer is accepted, update the local remote with:
+The local clone uses the transferred repository as its `origin`:
 
 ```bash
 git remote set-url origin https://github.com/jjingohenry-ops/africahealingnetwork.git
